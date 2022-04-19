@@ -218,7 +218,7 @@ def menu(message):
     if message.text == 'Help':
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
         markup.row('Back')
-        bot.send_message(message.chat.id, 'Hey! This bot can do differents functions with text!\n'
+        bot.send_message(message.chat.id, 'Hey! This bot can do difference functions with text!\n'
                                           'Spelling\n'
                                           'This function corrects misspelled words, if any, and sends the corrected version.\n'
                                           'Synonym\n'
@@ -229,7 +229,7 @@ def menu(message):
                                           'This function takes text and sends the most frequently occurring words.\n'
                                           'Summarize\n'
                                           'This function accepts text and sends a shortened version of the text.')
-        bot.send_message(message.chat.id, 'Привет! Этот бот может делать с текстом все что угодно!\n'
+        bot.send_message(message.chat.id, 'Привет! Этот бот может выполнять различные функции с текстом!\n'
                                            'Орфография\n'
                                            'Эта функция исправляет слова с ошибками, если таковые имеются, и отправляет исправленную версию.\n'
                                            'Синоним\n'
