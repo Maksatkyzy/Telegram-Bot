@@ -10,7 +10,8 @@ def menu(message):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     markup.row('English', 'Russian', 'Help')
     bot.send_message(message.chat.id,
-                     'Hello! Please choose language!',
+                     'Hello! Please choose language:\n'
+                     'Привет! Пожалуйста, выберите язык:',
                      reply_markup=markup)
 
 def token_func(message):
