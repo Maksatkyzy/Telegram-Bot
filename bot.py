@@ -64,6 +64,7 @@ def orfo_func(message):
     fixed = speller.spelled(message.text)
     bot.send_message(message.chat.id, fixed)
 
+
 def eng_orf_func(message):
     import nltk
 
@@ -75,7 +76,6 @@ def eng_orf_func(message):
 
     my_word = [message.text]
 
-   
     for word in my_word:
         temp = [(edit_distance(word, w), w) for w in correct if w[0] == word[0]]
         a = (sorted(temp, key=lambda val: val[0])[0][1])
@@ -218,14 +218,14 @@ def menu(message):
     if message.text == 'Help':
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
         markup.row('Back')
-        bot.send_message(message.chat.id, 'Hey! This bot can do all sorts of things with text!\n'
+        bot.send_message(message.chat.id, 'Hey! This bot can do differents functions with text!\n'
                                           'Spelling\n'
                                           'This function corrects misspelled words, if any, and sends the corrected version.\n'
                                           'Synonym\n'
                                           'This function finds synonyms and sends them all.\n'
                                           'Antonym\n'
                                           'This function finds antonyms and sends them all.\n'
-                                          'Tokenization\n'
+                                          'Keywords\n'
                                           'This function takes text and sends the most frequently occurring words.\n'
                                           'Summarize\n'
                                           'This function accepts text and sends a shortened version of the text.')
@@ -236,7 +236,7 @@ def menu(message):
                                            'Эта функция находит синонимы и отправляет их все.\n'
                                            'Антоним\n'
                                            'Эта функция находит антонимы и отправляет их все.\n'
-                                           'Токенизация\n'
+                                           'Ключевые слова\n'
                                            'Эта функция берет текст и отправляет наиболее часто встречающиеся слова.\n'
                                            'Суммаризация\n'
                                            'Эта функция принимает текст и отправляет сокращенную версию текста».', reply_markup=markup)
