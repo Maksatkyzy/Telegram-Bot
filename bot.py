@@ -66,68 +66,21 @@ def orfo_func(message):
 
 def eng_orf_func(message):
     import nltk
-    import re
-    import string
-    import requests
-    from nltk.probability import FreqDist
-    from nltk import word_tokenize
 
-    TEXT = requests.get('https://norvig.com/big.txt').text
-    t = TEXT.lower()
-    spec_chars = string.punctuation + '\n\xa0«»\t—…'
+    from nltk.metrics.distance import edit_distance
 
-    def remove_chars_from_text(text, chars):
-        return "".join([ch for ch in text if ch not in chars])
+    nltk.download('words')
+    from nltk.corpus import words
+    correct = words.words()
 
-    w_s = remove_chars_from_text(t, spec_chars)
-    text_tokens = word_tokenize(w_s)
-    text = nltk.Text(text_tokens)
-    fdist = FreqDist(text)
+    my_word = [message.text]
 
-    def correct(word):
-        candidates = (known(edits0(word)) or
-                      known(edits1(word)) or
-                      known(edits2(word)) or
-                      [word])
-        return max(candidates, key=fdist.get)
+   
+    for word in my_word:
+        temp = [(edit_distance(word, w), w) for w in correct if w[0] == word[0]]
+        a = (sorted(temp, key=lambda val: val[0])[0][1])
 
-    def known(words):
-        return {w for w in words if w in fdist}
-
-    def edits0(word):
-        return {word}
-
-    def edits2(word):
-        return {e2 for e1 in edits1(word) for e2 in edits1(e1)}
-
-    def edits1(word):
-        pairs = splits(word)
-        deletes = [a + b[1:] for (a, b) in pairs if b]
-        transposes = [a + b[1] + b[0] + b[2:] for (a, b) in pairs if len(b) > 1]
-        replaces = [a + c + b[1:] for (a, b) in pairs for c in alphabet if b]
-        inserts = [a + c + b for (a, b) in pairs for c in alphabet]
-        return set(deletes + transposes + replaces + inserts)
-
-    def splits(word):
-        return [(word[:i], word[i:])
-                for i in range(len(word) + 1)]
-    alphabet = 'abcdefghijklmnopqrstuvwxyz'
-
-    def correct_text(text):
-        return re.sub('[a-zA-Z]+', correct_match, text)
-
-    def correct_match(match):
-        word = match.group()
-        return case_of(word)(correct(word.lower()))
-
-    def case_of(text):
-        return (str.upper if text.isupper() else
-                str.lower if text.islower() else
-                str.title if text.istitle() else
-                str)
-
-    a = correct_text(message.text)
-    bot.send_message(message.chat.id, a)
+        bot.send_message(message.chat.id, a)
 def antonym_func(message):
     for syn in wordnet.synsets(message.text):
         for i in syn.lemmas():
