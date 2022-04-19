@@ -3,7 +3,7 @@ from telebot import types
 from nltk.corpus import wordnet
 from pyaspeller import YandexSpeller
 
-bot = telebot.TeleBot('5009393774:AAHsTr0942TH62HloPZRAtlQc9etsMGmgGw')
+bot = telebot.TeleBot('TOKEN')
 
 @bot.message_handler(commands=["start"])
 def menu(message):
